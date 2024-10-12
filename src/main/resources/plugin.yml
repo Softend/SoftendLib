@@ -1,0 +1,7 @@
+name: Template-Plugin
+main: kr.ypshop.template.Main
+version: 1.0.0
+api-version: 1.20
+author: YPShop
+description: simple template plugin
+website: http://ypshop.kr

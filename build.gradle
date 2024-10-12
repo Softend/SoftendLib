@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'kr.ypshop'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "http://nexus.ypshop.kr:8008/repository/maven-public/"
+        allowInsecureProtocol = true
+    }
+}
+
+dependencies {
+    compileOnly "org.projectlombok:lombok:1.18.24"
+    compileOnly "org.spigotmc:spigot-api:R0.1:1.20.1"
+    annotationProcessor "org.projectlombok:lombok:1.18.24"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    destinationDirectory = file("buildpath")
+}
