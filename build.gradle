@@ -3,20 +3,21 @@ plugins {
 }
 
 group = 'kr.ypshop'
-version = '1.0-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
     maven {
-        url = "http://nexus.ypshop.kr:8008/repository/maven-public/"
-        allowInsecureProtocol = true
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
     }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     compileOnly "org.projectlombok:lombok:1.18.24"
-    compileOnly "org.spigotmc:spigot-api:R0.1:1.20.1"
     annotationProcessor "org.projectlombok:lombok:1.18.24"
+    compileOnly 'io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -24,5 +25,5 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
-    destinationDirectory = file("buildpath")
+    destinationDirectory = file("C:\\Users\\expo9\\Pictures\\서버\\1.20.1\\plugins")
 }
