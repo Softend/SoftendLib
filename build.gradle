@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'kr.ypshop'
@@ -26,4 +27,15 @@ tasks.withType(JavaCompile).configureEach {
 
 jar {
     destinationDirectory = file("C:\\Users\\expo9\\Pictures\\서버\\1.20.1\\plugins")
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.softend'
+            artifactId = 'SoftendLib'
+            version = '1.0.0-SNAPSHOT'
+            from components.java
+        }
+    }
 }
