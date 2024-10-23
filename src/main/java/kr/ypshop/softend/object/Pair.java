@@ -1,4 +1,4 @@
-package kr.ypshop.softend.util;
+package kr.ypshop.softend.object;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

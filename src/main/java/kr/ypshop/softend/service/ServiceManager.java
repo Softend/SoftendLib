@@ -1,8 +1,8 @@
 package kr.ypshop.softend.service;
 
 import kr.ypshop.softend.Main;
-import kr.ypshop.softend.exception.UnknownServiceException;
 import kr.ypshop.softend.exception.RedundantServiceException;
+import kr.ypshop.softend.exception.ServiceException;
 import kr.ypshop.softend.service.event.ServiceRegisterEvent;
 import kr.ypshop.softend.service.event.ServiceUnregisterEvent;
 import org.bukkit.plugin.Plugin;
@@ -38,23 +38,23 @@ public class ServiceManager {
                 .runTask(Main.getInstance(), () -> Main.getInstance().getServer().getPluginManager().callEvent(new ServiceRegisterEvent(instance)));
     }
 
-    public ServiceInstance getService(String serviceId) throws UnknownServiceException {
+    public ServiceInstance getService(String serviceId) throws ServiceException {
         ServiceInstance instance = services.stream()
                 .filter(service -> service.getServiceId().equalsIgnoreCase(serviceId))
                 .findFirst().orElse(null);
         if (instance == null) {
-            throw new UnknownServiceException();
+            throw new ServiceException(ServiceException.UNKNOWN_SERVICE);
         }
 
         return instance;
     }
 
-    public void unregister(String serviceId) {
+    public void unregister(String serviceId) throws ServiceException {
         ServiceInstance instance = services.stream()
                 .filter(service -> service.getServiceId().equalsIgnoreCase(serviceId))
                 .findFirst().orElse(null);
         if (instance == null) {
-            throw new UnknownServiceException();
+            throw new ServiceException(ServiceException.UNKNOWN_SERVICE);
         }
 
         instance.setRegistered(false);

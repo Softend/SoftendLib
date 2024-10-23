@@ -62,7 +62,7 @@ public class Metrics {
    */
   public Metrics(JavaPlugin plugin, int serviceId) {
     this.plugin = plugin;
-    // Get the config file
+    // Get the config kr.ypshop.softend.file
     File bStatsFolder = new File(plugin.getDataFolder().getParentFile(), "bStats");
     File configFile = new File(bStatsFolder, "config.yml");
     YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);

@@ -2,6 +2,7 @@ package kr.ypshop.softend;
 
 import kr.ypshop.softend.bstats.Metrics;
 import kr.ypshop.softend.config.PluginConfig;
+import kr.ypshop.softend.file.config.MessageLoader;
 import kr.ypshop.softend.listener.PluginListener;
 import kr.ypshop.softend.util.EventUtil;
 import kr.ypshop.softend.util.TerminalColorUtil;
@@ -22,7 +23,6 @@ public class Main extends JavaPlugin {
         metrics = new Metrics(this, PluginConfig.PLUGIN_ID);
 
         EventUtil.registerEvents(this, new PluginListener());
-
         getLogger().info(TerminalColorUtil.formatColor("§5" + PluginConfig.STARTUP_MSG));
     }
 
