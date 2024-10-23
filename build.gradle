@@ -6,6 +6,9 @@ plugins {
 group = 'kr.ypshop'
 version = '1.0.0-SNAPSHOT'
 
+sourceCompatibility = 21
+targetCompatibility = 21
+
 repositories {
     mavenCentral()
     maven {
