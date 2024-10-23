@@ -28,9 +28,6 @@ tasks.withType(JavaCompile).configureEach {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'com.github.softend'
-            artifactId = 'SoftendLib'
-            version = '1.0.0-SNAPSHOT'
             from components.java
         }
     }
