@@ -2,7 +2,6 @@ package kr.ypshop.softend;
 
 import kr.ypshop.softend.bstats.Metrics;
 import kr.ypshop.softend.config.PluginConfig;
-import kr.ypshop.softend.file.config.MessageLoader;
 import kr.ypshop.softend.listener.PluginListener;
 import kr.ypshop.softend.util.EventUtil;
 import kr.ypshop.softend.util.TerminalColorUtil;

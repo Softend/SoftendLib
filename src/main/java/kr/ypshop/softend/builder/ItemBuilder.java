@@ -44,6 +44,13 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder clearLore() {
+        if (itemMeta.hasLore()) {
+            itemMeta.lore().clear();
+        }
+        return this;
+    }
+
     public ItemBuilder addLore(Component... component) {
         List<Component> components = itemMeta.lore();
         if (components == null) {
@@ -51,6 +58,25 @@ public class ItemBuilder {
         }
 
         components.addAll(Arrays.asList(component));
+        itemMeta.lore(components);
+        return this;
+    }
+
+    public ItemBuilder setLore(List<Component> lore) {
+        if (lore == null) {
+            return clearLore();
+        }
+
+        itemMeta.lore(lore);
+        return this;
+    }
+
+    public ItemBuilder setStringLore(List<String> lore) {
+        if (lore == null) {
+            return clearLore();
+        }
+
+        itemMeta.lore(lore.stream().map(Component::text).toList());
         return this;
     }
 
@@ -61,6 +87,7 @@ public class ItemBuilder {
         }
 
         components.addAll(Arrays.stream(string).map(Component::text).toList());
+        itemMeta.lore(components);
         return this;
     }
 
