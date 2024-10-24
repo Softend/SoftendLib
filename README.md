@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/Softend/SoftendLib.svg)](https://jitpack.io/#Softend/SoftendLib)
+<h><img src="https://jitpack.io/v/Softend/SoftendLib.svg"></h>
 
 # SoftendLib
 SoftendLib은 [이앤디소프트](https://github.com/Softend)에서 개발하는<br>
