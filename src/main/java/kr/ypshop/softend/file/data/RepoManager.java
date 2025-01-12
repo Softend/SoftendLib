@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import kr.ypshop.softend.exception.FileException;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.bukkit.plugin.Plugin;
 
@@ -15,9 +14,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 
 @AllArgsConstructor
-public class FileRepo {
+public class RepoManager {
 
     private final Plugin plugin;
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -27,10 +27,11 @@ public class FileRepo {
      * @param data (Savable 의 구현체)
      * @param fileName 무조건 .json 확장자를 사용해야합니다. ( .json 확장자 미사용시 강제로 추가함 )
      */
-    public boolean saveData(Savable data, String fileName) {
+    public <T> boolean saveData(T data, JsonRepo<T> repo, String fileName) {
         if (!fileName.endsWith(".json")) {
             fileName = fileName + ".json";
         }
+
 
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
@@ -39,7 +40,7 @@ public class FileRepo {
         File file = new File(plugin.getDataFolder(), fileName);
         try (JsonWriter writer = new JsonWriter(new FileWriter(file))) {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add("data", data.toJson());
+            jsonObject.add("data", repo.toJson(data));
             jsonObject.addProperty("class", data.getClass().getName());
 
             gson.toJson(jsonObject, writer);
@@ -59,12 +60,12 @@ public class FileRepo {
      * @param fileName 무조건 .json 확장자를 사용해야합니다. <br>( .json 확장자 미사용시 강제로 추가함 )
      * @param ignoreClassDifferent 파일에 저장된 클래스명과 clazz 값이 달라도<br>무시하는지 여부 ( true 는 무시 )
      */
-    public<T> T loadData(Class<T> clazz, String fileName, boolean ignoreClassDifferent) {
+    public<T> T loadData(Class<T> clazz, JsonRepo<T> repo, String fileName, boolean ignoreClassDifferent) {
         if (!fileName.endsWith(".json")) {
             fileName = fileName + ".json";
         }
 
-        if (!Arrays.stream(clazz.getInterfaces()).anyMatch(aClass -> aClass.equals(Savable.class))) {
+        if (!Arrays.stream(clazz.getInterfaces()).anyMatch(aClass -> aClass.equals(JsonRepo.class))) {
             new FileException("불러오기 하는 데이터는 무조건 Savable 을 interface 로 사용해야합니다").printStackTrace();
             return null;
         }
@@ -84,7 +85,7 @@ public class FileRepo {
                 throw new IOException("파일에 저장된 클래스명과 clazz 값이 다릅니다.");
             }
 
-            T data = gson.fromJson(jsonObject.getAsJsonObject("data"), clazz);
+            T data = repo.fromJson(jsonObject.getAsJsonObject("data"));
             plugin.getLogger().severe(String.format("%s을 성공적으로 불러왔습니다.", fileName));
 
             return data;
