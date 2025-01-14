@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'kr.ypshop'
+group = 'kr.endsoft'
 version = '1.0.1-SNAPSHOT'
 
 repositories {
@@ -26,6 +26,11 @@ dependencies {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+jar {
+    destinationDirectory = file("C:\\Users\\expo9\\Pictures\\서버\\1.20.1\\plugins")
+    finalizedBy tasks.publishToMavenLocal
 }
 
 publishing {
