@@ -36,6 +36,10 @@ jar {
 publishing {
     publications {
         maven(MavenPublication) {
+            groupId = 'kr.endsoft'
+            artifactId = 'SoftendLib'
+            version = '1.0.1'
+
             from components.java
         }
     }
