@@ -1,10 +1,16 @@
+buildscript {
+    ext {
+        softwareVersion = '1.0.2-SNAPSHOT'
+    }
+}
+
 plugins {
     id 'java'
     id 'maven-publish'
 }
 
 group = 'kr.endsoft'
-version = '1.0.1-SNAPSHOT'
+version = "${softwareVersion}"
 
 repositories {
     mavenCentral()
@@ -33,7 +39,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'kr.endsoft'
             artifactId = 'SoftendLib'
-            version = '1.0.1-SNAPSHOT'
+            version = "${softwareVersion}"
 
             from components.java
         }
