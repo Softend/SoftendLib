@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import kr.endsoft.softend.exception.FileException;
+import kr.endsoft.softend.exception.repo.FileException;
 import lombok.AllArgsConstructor;
 import org.bukkit.plugin.Plugin;
 
@@ -43,7 +43,7 @@ public class RepoManager {
             jsonObject.addProperty("class", data.getClass().getName());
 
             gson.toJson(jsonObject, writer);
-            plugin.getLogger().info(String.format("%s을 성공적으로 저장했습니다."));
+            plugin.getLogger().info(String.format("%s을 성공적으로 저장했습니다.", fileName));
         } catch (IOException e) {
             e.printStackTrace();
             plugin.getLogger().severe(String.format("%s을 저장하는 중 오류가 발생했습니다.", fileName));
@@ -62,11 +62,6 @@ public class RepoManager {
     public<T> T loadData(Class<T> clazz, JsonRepo<T> repo, String fileName, boolean ignoreClassDifferent) {
         if (!fileName.endsWith(".json")) {
             fileName = fileName + ".json";
-        }
-
-        if (!Arrays.stream(clazz.getInterfaces()).anyMatch(aClass -> aClass.equals(JsonRepo.class))) {
-            new FileException("불러오기 하는 데이터는 무조건 Savable 을 interface 로 사용해야합니다").printStackTrace();
-            return null;
         }
 
         File file = new File(plugin.getDataFolder(), fileName);

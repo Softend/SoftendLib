@@ -1,9 +1,9 @@
-package kr.endsoft.softend.exception;
+package kr.endsoft.softend.exception.repo;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class PaginateException extends RuntimeException {
+public class FileException extends Exception {
     private final String message;
 
     @Override

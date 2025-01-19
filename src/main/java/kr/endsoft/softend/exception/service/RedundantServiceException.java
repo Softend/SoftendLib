@@ -1,4 +1,4 @@
-package kr.endsoft.softend.exception;
+package kr.endsoft.softend.exception.service;
 
 import lombok.Getter;
 

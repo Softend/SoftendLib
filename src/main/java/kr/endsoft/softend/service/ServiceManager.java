@@ -1,8 +1,8 @@
 package kr.endsoft.softend.service;
 
 import kr.endsoft.softend.Main;
-import kr.endsoft.softend.exception.RedundantServiceException;
-import kr.endsoft.softend.exception.ServiceException;
+import kr.endsoft.softend.exception.service.RedundantServiceException;
+import kr.endsoft.softend.exception.service.ServiceException;
 import kr.endsoft.softend.service.event.ServiceUnregisterEvent;
 import kr.endsoft.softend.service.event.ServiceRegisterEvent;
 import org.bukkit.plugin.Plugin;

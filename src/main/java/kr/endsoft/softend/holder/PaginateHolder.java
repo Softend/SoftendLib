@@ -1,7 +1,7 @@
 package kr.endsoft.softend.holder;
 
 import kr.endsoft.softend.Main;
-import kr.endsoft.softend.exception.PaginateException;
+import kr.endsoft.softend.exception.paginate.PaginateException;
 import kr.endsoft.softend.util.ItemUtil;
 import kr.endsoft.softend.config.PaginateConfig;
 import lombok.Getter;
