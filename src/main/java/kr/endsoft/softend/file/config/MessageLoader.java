@@ -32,6 +32,10 @@ public class MessageLoader {
         return instanceMap.get(plugin);
     }
 
+    public static List<Plugin> getPlugins() {
+        return List.copyOf(instanceMap.keySet());
+    }
+
     private final Plugin plugin;
     private final Map<String, String> contentMap = new HashMap<>();
     private static final Map<String, Function<Plugin, String>> tagMap = new HashMap<>();

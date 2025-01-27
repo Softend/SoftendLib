@@ -71,6 +71,10 @@ public class RepoManager {
 
         try (JsonReader reader = new JsonReader(new FileReader(file))) {
             JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+            if (jsonObject == null) {
+                throw new IOException("파일 형식이 일치하지 않습니다.");
+            }
+
             if (!jsonObject.has("class") || !jsonObject.has("data")) {
                 throw new IOException("파일 형식이 일치하지 않습니다.");
             }
@@ -80,7 +84,7 @@ public class RepoManager {
             }
 
             T data = repo.fromJson(jsonObject.getAsJsonObject("data"));
-            plugin.getLogger().severe(String.format("%s을 성공적으로 불러왔습니다.", fileName));
+            plugin.getLogger().info(String.format("%s을 성공적으로 불러왔습니다.", fileName));
 
             return data;
         } catch (IOException e) {

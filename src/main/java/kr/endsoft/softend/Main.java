@@ -1,6 +1,8 @@
 package kr.endsoft.softend;
 
 import kr.endsoft.softend.bstats.Metrics;
+import kr.endsoft.softend.command.CommandManager;
+import kr.endsoft.softend.command.ReloadCommand;
 import kr.endsoft.softend.config.PluginConfig;
 import kr.endsoft.softend.file.config.MessageLoader;
 import kr.endsoft.softend.file.config.MessageType;
@@ -23,6 +25,11 @@ public class Main extends JavaPlugin {
     private static Metrics metrics;
 
     @Override
+    public void onLoad() {
+        instance = this;
+    }
+
+    @Override
     public void onEnable() {
         instance = this;
         metrics = new Metrics(this, PluginConfig.PLUGIN_ID);
@@ -41,6 +48,7 @@ public class Main extends JavaPlugin {
 
             return player.getName();
         }));
+        CommandManager.getInstance().registerCommand("softend", new ReloadCommand());
     }
 
     @Override

@@ -31,6 +31,7 @@ public class ServiceManager {
             throw new IllegalArgumentException("서비스 객체의 플러그인 정보와 인자로 들어온 플러그인이 일치하지 않습니다!");
         }
 
+        services.add(instance);
         instance.setRegistered(true);
         Main.getInstance().getLogger().info(String.format("서비스 %s(이)가 등록됐습니다.", instance.getServiceId()));
 
@@ -67,7 +68,7 @@ public class ServiceManager {
     }
 
     public void unregisterAll(Plugin plugin) {
-        services.stream().filter(serviceInstance -> serviceInstance.getPlugin().equals(plugin)).forEach(serviceInstance -> unregister(serviceInstance.getServiceId()));
+        List.copyOf(services).stream().filter(serviceInstance -> serviceInstance.getPlugin().equals(plugin)).forEach(serviceInstance -> unregister(serviceInstance.getServiceId()));
     }
 
 }

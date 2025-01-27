@@ -1,6 +1,9 @@
 package kr.endsoft.softend.util;
 
+import kr.endsoft.softend.object.Pair;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -111,23 +114,56 @@ public class ItemUtil {
         return result;
     }
 
+    public static Pair<Integer, List<Integer>> getItemCounts(HumanEntity player, ItemStack itemStack) {
+        int count = 0;
+        List<Integer> slots = new ArrayList<>();
+
+        for (int i = 0; i < player.getInventory().getSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack == null || !stack.isSimilar(itemStack)) {
+                continue;
+            }
+
+            count += stack.getAmount();
+            slots.add(i);
+        }
+
+        return new Pair<>(count, slots);
+    }
+
     /**
      * 플레이어 인벤토리에서 아이템을 제거합니다.
      * @param player
      * @param itemStack
-     * @param amount
      * @return
      */
-    public static boolean removeItem(Player player, ItemStack itemStack, int amount) {
-        if (!containItem(player, itemStack, amount)) {
-            return false;
+    public static int removeItem(HumanEntity player, ItemStack itemStack) {
+        Pair<Integer, List<Integer>> pair = getItemCounts(player, itemStack);
+
+        int removed = 0;
+        for (int integer : pair.getSecond()) {
+            if (removed >= pair.getFirst()) {
+                break;
+            }
+
+            ItemStack stack = player.getInventory().getItem(integer);
+            if (stack == null || !stack.isSimilar(itemStack)) {
+                continue;
+            }
+
+            if (itemStack.getAmount() < removed + stack.getAmount()) {
+                stack.setAmount(stack.getAmount() - (itemStack.getAmount() - removed));
+                removed += (itemStack.getAmount() - removed);
+                player.getInventory().setItem(integer, stack);
+                continue;
+            }
+
+            removed += stack.getAmount();
+            stack.setType(Material.AIR);
+            player.getInventory().setItem(integer, stack);
         }
 
-        ItemStack item = itemStack.clone();
-        item.setAmount(amount);
-
-        Map<Integer, ItemStack> result = player.getInventory().removeItem(item);
-        return result.isEmpty();
+        return itemStack.getAmount() - removed;
     }
 
 }

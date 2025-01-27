@@ -5,9 +5,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +72,6 @@ public class CommandManager implements TabExecutor {
             return List.of();
         }
 
-        return getExecutor(command).tabList(commandSender, args, s, command).stream().filter(index -> index.toLowerCase().contains(args[args.length - 1])).toList();
+        return StringUtil.copyPartialMatches(args[args.length - 1], getExecutor(command).tabList(commandSender, args, s, command), new ArrayList<>());
     }
 }
