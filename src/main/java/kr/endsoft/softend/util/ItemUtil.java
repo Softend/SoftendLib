@@ -89,14 +89,17 @@ public class ItemUtil {
         Inventory inventory = player.getInventory();
         Arrays.stream(itemStacks).forEach(itemStack -> {
             int slot = inventory.first(itemStack);
-            ItemStack currentItem = inventory.getItem(slot);
 
-            if (slot > -1 && currentItem != null && currentItem.getMaxStackSize() < currentItem.getAmount() + itemStack.getAmount()) {
-                ItemStack modifyItem = currentItem.clone();
-                modifyItem.setAmount(currentItem.getAmount() + itemStack.getAmount());
+            if (slot > -1) {
+                ItemStack currentItem = inventory.getItem(slot);
 
-                inventory.setItem(slot, modifyItem);
-                return;
+                if (currentItem != null && currentItem.getMaxStackSize() < currentItem.getAmount() + itemStack.getAmount()) {
+                    ItemStack modifyItem = currentItem.clone();
+                    modifyItem.setAmount(currentItem.getAmount() + itemStack.getAmount());
+
+                    inventory.setItem(slot, modifyItem);
+                    return;
+                }
             }
 
             slot = inventory.firstEmpty();

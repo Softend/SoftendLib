@@ -18,6 +18,9 @@ repositories {
         name = 'papermc'
         url = 'https://repo.papermc.io/repository/maven-public/'
     }
+    maven {
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
     maven { url 'https://jitpack.io' }
 }
 
@@ -28,6 +31,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.18.24"
     annotationProcessor "org.projectlombok:lombok:1.18.24"
     implementation 'io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
 }
 
 tasks.withType(JavaCompile).configureEach {

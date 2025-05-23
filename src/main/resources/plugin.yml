@@ -12,3 +12,5 @@ permissions:
   softend.admin:
     description: admin permission
     default: op
+softdepend:
+  - PlaceholderAPI

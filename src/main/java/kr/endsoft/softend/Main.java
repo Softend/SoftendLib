@@ -4,6 +4,7 @@ import kr.endsoft.softend.bstats.Metrics;
 import kr.endsoft.softend.command.CommandManager;
 import kr.endsoft.softend.command.ReloadCommand;
 import kr.endsoft.softend.config.PluginConfig;
+import kr.endsoft.softend.file.config.MessageExpansion;
 import kr.endsoft.softend.file.config.MessageLoader;
 import kr.endsoft.softend.file.config.MessageType;
 import kr.endsoft.softend.listener.PluginListener;
@@ -49,6 +50,14 @@ public class Main extends JavaPlugin {
             return player.getName();
         }));
         CommandManager.getInstance().registerCommand("softend", new ReloadCommand());
+
+        if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
+            if (new MessageExpansion().register()) {
+                getLogger().info("PlaceholderAPI 와 연동에 성공하였습니다.");
+            } else {
+                getLogger().severe("PlaceholderAPI 와 연동에 실패했습니다.");
+            }
+        }
     }
 
     @Override

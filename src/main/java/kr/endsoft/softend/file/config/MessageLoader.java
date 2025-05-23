@@ -38,8 +38,8 @@ public class MessageLoader {
 
     private final Plugin plugin;
     private final Map<String, String> contentMap = new HashMap<>();
-    private static final Map<String, Function<Plugin, String>> tagMap = new HashMap<>();
-    private static final Map<String, BiFunction<Plugin,Audience,String>> audienceMap = new HashMap<>();
+    protected static final Map<String, Function<Plugin, String>> tagMap = new HashMap<>();
+    protected static final Map<String, BiFunction<Plugin,Audience,String>> audienceMap = new HashMap<>();
 
     private MessageLoader(Plugin plugin) {
         this.plugin = plugin;
